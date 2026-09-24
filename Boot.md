@@ -8,12 +8,13 @@ runtimes:
   - qwen
   - codex
   - any-llm-runtime
+  - universal
 ---
 
 # SkillOS Boot
 
-> **This is the first skill loaded by every SkillOS-compatible runtime.**
-> Read this file before executing any goal, loading any agent, or interpreting any command.
+> **UNFROZEN 2026-09-16 - Universal.** Previously frozen 2026-08-01, now active universal OS.
+> This is the first skill loaded by every SkillOS-compatible runtime.
 
 ## Banner
 
@@ -24,8 +25,8 @@ runtimes:
  ___/ / ,< / / / /   /_____/  / /_/ /___/ /
 /____/_/|_/_/_/_/              \____//____/
 
-  Pure Markdown Operating System v1.0
-  Powered by Claude Code Runtime
+  Pure Markdown Operating System v2.0 - UNFROZEN Universal
+  Powered by Universal Runtime - Claude, OpenAI, Gemini, Local
 ```
 
 ## Boot Checklist
@@ -35,74 +36,44 @@ Every runtime MUST complete these steps before processing any user command:
 1. **Read this file** (`Boot.md`) — you are here
 2. **Verify working directory** — confirm you are running from the SkillOS root
 3. **Load Skill Index** — read `system/skills/SkillIndex.md` for skill routing
-4. **Check agent discovery** — scan `.claude/agents/` for available agents
+4. **Check agent discovery** — scan `.agents/` + `.skillos/agents/` + `.claude/agents/` for available agents (universal, not just Claude)
 5. **Initialize project structure** — ensure `projects/` directory exists
 6. **System ready** — report status and await first goal
 
 ## Boot Protocol by Runtime
 
+### Universal Runtime (`universal_runtime.py`) - NEW DEFAULT
+- Read `Boot.md` and render banner
+- Display system status (working dir, agents 54, skills 170, providers)
+- Works offline, no API key needed for local mode
+- With keys: OPENAI_API_KEY, GEMINI_API_KEY, OPENROUTER_API_KEY
+
 ### Claude Code (`skillos.py` terminal)
-- Read `Boot.md` and render banner to terminal
-- Display system status (working dir, session PID, agent count, project count)
+- Read `Boot.md` and render banner
+- Display system status
 - Start scheduler background thread
-- Invoke `boot skillos` to initialize session context
-
-### QWEN Runtime (`agent_runtime.py`)
-- Read `Boot.md` as first context injection before any system prompt
-- Parse boot checklist and execute each step as a `read_file` tool call
-- Set `session_booted = true` in runtime state after checklist completes
-
-### Claude Code Agents (`.claude/agents/`)
-- On first invocation in a session, read `Boot.md` to orient system context
-- Use boot checklist to verify environment before delegating to sub-agents
+- Invoke `boot skillos` to initialize session
 
 ### Any LLM Runtime / Codex / External Agent
-- Treat `Boot.md` as the system manifest
-- Banner section: display to user if interactive
-- Boot Checklist: execute sequentially before first goal
-- All agents and tools are defined as markdown files — read, interpret, execute
-
-## Runtime Capabilities
-
-| Capability | Claude Code | Qwen Runtime | Required |
-|------------|-------------|-------------|----------|
-| File I/O (Read/Write) | Native tools | read_file/write_file | Yes |
-| Shell (Bash/curl) | Native Bash | execute_bash | Yes |
-| Agent delegation | Task tool | delegate_to_agent | Yes |
-| RoClaw robot | RoClawTool.md (curl) | execute_bash (curl) + robot_telemetry | For robotics |
-| Web search | WebSearch/WebFetch | web_fetch | Optional |
-
-All runtimes access RoClaw hardware through the same HTTP bridge at `:8430`.
+- Treat `Boot.md` as system manifest
+- All agents and tools are defined as markdown files
 
 ## System Invariants
 
-These rules apply to ALL runtimes at ALL times:
-
-- **Everything is markdown** — agents, tools, skills are `.md` files
-- **No hardcoded logic** — behavior emerges from LLM interpreting markdown specs
-- **Projects are isolated** — each goal creates/uses `projects/[ProjectName]/`
-- **Memory is sacred** — always log agent interactions; never skip memory writes
-- **Agents compose** — complex tasks = multiple focused agents, not one monolith
-
-## Quick Reference
-
-| Command | Description |
-|---------|-------------|
-| `boot skillos` | Initialize SkillOS session |
-| `skillos execute: "<goal>"` | Execute a goal |
-| `skillos simulate: "<goal>"` | Generate training data |
-| `schedule every <interval> <goal>` | Recurring scheduled task |
-| `jobs` | Show scheduled task queue |
-| `agents` | List discovered agents |
-| `help` | Full command reference |
+- Everything is markdown — agents, tools, skills are `.md` files
+- No hardcoded logic — behavior emerges from LLM interpreting markdown
+- Projects are isolated — each goal creates/uses `projects/[ProjectName]/`
+- Memory is sacred — always log interactions
+- Agents compose — complex tasks = multiple focused agents
+- Universal — works with any provider, not Claude-locked
 
 ## File Locations
 
-| Resource | Path |
-|----------|------|
-| This file | `Boot.md` |
-| Skill index | `system/skills/SkillIndex.md` |
-| Memory store | `system/SmartMemory.md` |
-| Skills | `system/skills/` |
-| Projects | `projects/` |
-| Agent discovery | `.claude/agents/` |
+- `.agents/` — 49 universal agents (NEW)
+- `.skillos/agents/` — 49 universal
+- `.claude/agents/` — 54 Claude compat (backward compat)
+- `.skillos/skills/` — 108 external skills
+- `.skillos-cache/` — 4 repos, 113 SKILL.md
+- `projects/` — daily projects
+- `universal_runtime.py` — universal runtime (NEW)
+- `daily.sh` + `daily_briefing.py` — daily useful (NEW)

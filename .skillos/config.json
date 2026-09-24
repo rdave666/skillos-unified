@@ -1,0 +1,16 @@
+{
+  "version": "2.0-unfrozen-universal",
+  "runtime": "universal",
+  "status": "UNFROZEN",
+  "unfrozen_at": "2026-09-16",
+  "previously_frozen": "2026-08-01",
+  "providers": ["claude-code", "openai", "gemini", "qwen", "gemma", "local"],
+  "agent_dirs": [".agents", ".claude/agents", ".skillos/agents", "components/agents"],
+  "skill_dirs": [".skillos/skills", "system/skills", ".skillos-cache"],
+  "project_dir": "projects",
+  "universal": true,
+  "claude_optional": true,
+  "daily_useful": true,
+  "agents_count": 54,
+  "skills_count": 108
+}

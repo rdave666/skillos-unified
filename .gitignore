@@ -46,3 +46,8 @@ Thumbs.db
 
 # Node (for skill packages with JS templates)
 node_modules/
+
+# Universal runtime additions - regenerable, install.sh rebuilds
+.skillos-cache/
+projects/Project_*/output/
+__pycache__/

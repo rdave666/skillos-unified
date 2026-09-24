@@ -1,0 +1,14 @@
+{
+  "version": "1.0-universal",
+  "generated_at": "2026-09-15T19:35:09Z",
+  "repos": [
+    {"name": "anthropics/skills", "status": "cloned", "skills": 20, "path": ".skillos-cache/aafebdd99c3d93bce27447b3bab75c16"},
+    {"name": "huggingface/skills", "status": "cloned", "skills": 26, "path": ".skillos-cache/b05e288abc1617d90cc880ab10b853b0"},
+    {"name": "openai/skills", "status": "cloned-deprecated", "skills": 44, "path": ".skillos-cache/ceac4d14d257b71828b21d6b9b10e5f4", "note": "deprecated, use openai/plugins"},
+    {"name": "google-ai-edge/gallery", "status": "cloned", "skills": 23, "path": ".skillos-cache/c5111dc180304308df93c8a928175c2f"}
+  ],
+  "total_cached_skills": 113,
+  "universal_agents": 49,
+  "universal_skills": 108,
+  "provider_agnostic": true
+}
