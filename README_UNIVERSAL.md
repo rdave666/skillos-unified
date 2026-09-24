@@ -150,7 +150,7 @@ Universal fix:
   ```
 - Then re-run `./setup_universal.sh` or `./install_universal_agents.sh`
 - For full LLM execution, set API keys and use `universal_runtime.py` or original `agent_runtime.py` if you restore it from ai-os repo
-- Active development moved to this fork: [rdave666/skillos-unified](https://github.com/rdave666/skillos-unified) (unified + mega-tron router). Upstream `ai-os`/`ai-flows` and frozen [EvolvingAgentsLabs/skillos](https://github.com/EvolvingAgentsLabs/skillos) kept for history
+- Active development: [rdave666/skillos-unified](https://github.com/rdave666/skillos-unified) (unified + mega-tron router)
 
 ## Verification
 

@@ -31,10 +31,10 @@ if [ -d skillos ]; then
   cd skillos && git pull --quiet 2>/dev/null || true
   cd ~
 else
-  # rdave666/skillos-unified is PRIVATE - needs gh auth or SSH key
+  # PRIVATE repo - gh auth or SSH key required. If it fails, it fails.
   git clone https://github.com/rdave666/skillos-unified.git skillos 2>/dev/null \
-    || git clone git@github.com:rdave666/skillos-unified.git skillos 2>/dev/null \
-    || { echo "  private clone failed, falling back to public upstream (frozen original)"; git clone https://github.com/EvolvingAgentsLabs/skillos.git skillos; }
+    || git clone git@github.com:rdave666/skillos-unified.git skillos
+  [ -d skillos ] || { echo "  clone failed - authenticate first: gh auth login, or add an SSH key"; exit 1; }
 fi
 cd ~/skillos
 echo "  Cloned to ~/skillos (remote: $(git remote get-url origin 2>/dev/null))"

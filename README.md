@@ -1,7 +1,7 @@
 # SkillOS Unified — Pure Markdown OS + Mega-Tron Router
 
-> **This is the unified fork: [`rdave666/skillos-unified`](https://github.com/rdave666/skillos-unified)** (private).
-> Unfrozen 2026-09-16 from [EvolvingAgentsLabs/skillos](https://github.com/EvolvingAgentsLabs/skillos) (the original, frozen 2026-08-01, kept here as upstream for history + attribution).
+> **This is [`rdave666/skillos-unified`](https://github.com/rdave666/skillos-unified)** (private).
+> Unfrozen 2026-09-16 — this repo is the active one. Full history included.
 > Universal & provider-agnostic: Claude, OpenAI, Gemini, Qwen, Gemma, or local mode — no Claude lock.
 > Ships with **mega-tron router** integration and **one meta-router skill** (`skill-router-agent`) that picks the right skill(s) for your task wording out of 170+.
 
@@ -11,7 +11,7 @@
 
 SkillOS is a proof-of-concept OS where every component — agents, tools, memory, orchestration — is defined entirely in markdown documents. No code compilation. No complex APIs. Just markdown that any LLM interprets at runtime to become a composable problem-solving system.
 
-> Evolved from [LLMos](https://github.com/EvolvingAgentsLabs/llmos) — testing Skills as basic programs.
+> Idea lineage: Skills as basic programs, markdown as the executable.
 
 ## Install (fresh Linux machine, one command)
 
@@ -143,7 +143,7 @@ install.sh            # one-command unified installer
 - **Daily Useful** — `daily_briefing.py`: real HN + GitHub trending into `projects/Project_daily/`
 - **Hierarchical Skills** — Domain → Family → Skill taxonomy, 61% token reduction + dialects 50-99%
 - **Memory System** — every execution improves future runs; verdict-based skill retirement
-- **Private fork, upstream history** — full frozen-era git history preserved from [EvolvingAgentsLabs/skillos](https://github.com/EvolvingAgentsLabs/skillos)
+- **Full history** — every era of this OS, preserved in one repo
 
 ## Docs & Prompts
 
@@ -161,4 +161,4 @@ See `docs/` for full docs.
 
 Apache License 2.0 — see LICENSE
 
-*Fork of [EvolvingAgentsLabs/skillos](https://github.com/EvolvingAgentsLabs/skillos) (Evolving Agents Labs Initiative), unfrozen 2026-09-16, unified with [mega-tron](https://github.com/mega-edo/mega-tron) router as `rdave666/skillos-unified`.*
+*Unfrozen 2026-09-16, unified with [mega-tron](https://github.com/mega-edo/mega-tron) router as [`rdave666/skillos-unified`](https://github.com/rdave666/skillos-unified).*

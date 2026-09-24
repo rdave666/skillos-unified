@@ -37,8 +37,7 @@ cd ~
 rm -rf skillos
 # PRIVATE repo - authenticate first: gh auth login, or SSH key
 git clone https://github.com/rdave666/skillos-unified.git skillos \
-  || git clone git@github.com:rdave666/skillos-unified.git skillos \
-  || git clone https://github.com/EvolvingAgentsLabs/skillos.git skillos  # public upstream fallback
+  || git clone git@github.com:rdave666/skillos-unified.git skillos
 cd skillos
 
 # Unfreeze (remove frozen banner)
