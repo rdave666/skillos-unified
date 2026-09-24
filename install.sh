@@ -12,7 +12,7 @@ echo ""
 
 # 0. Prereqs
 echo "--- 0. Prereqs ---"
-which git >/dev/null 2>&1 || { echo "git not found, installing..."; sudo apt-get update && sudo apt-get install -y git || true; }
+which git >/dev/null 2>&1 || { echo "git not found, installing..."; command -v apt-get >/dev/null && sudo apt-get update -y && sudo apt-get install -y git || { echo '  install git manually (Termux: pkg install git)'; exit 1; }; }
 python3 --version || { echo "python3 not found"; exit 1; }
 PY_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
 echo "  Python: $PY_VER (need 3.11+)"
@@ -121,7 +121,14 @@ echo "  Cached SKILL.md: $(find .skillos-cache -name SKILL.md 2>/dev/null | wc -
 echo ""
 
 # 4. Install Mega-Tron Router
-echo "--- 4. Install Mega-Tron Router ---"
+OS_NAME=$(uname -o 2>/dev/null || echo "Linux")
+if [ "$SKIP_MEGATRON" = "1" ] || echo "$OS_NAME" | grep -qi android; then
+  echo "--- 4. Mega-Tron SKIPPED (SKIP_MEGATRON=1 or Android/Termux - needs Linux/macOS) ---"
+  echo "  Router still works in keyword mode via .agents/skill-router-agent.md"
+  MEGATRON=0
+else
+  MEGATRON=1
+  echo "--- 4. Install Mega-Tron Router ---"
 cd ~
 if [ -d mega-tron ]; then
   echo "  mega-tron exists, updating..."
@@ -150,6 +157,7 @@ echo "  Master pool: $(ls ~/.local/share/mega-tron/pool/skills/ 2>/dev/null | wc
 mega-tron skills sync 2>&1 | tail -n5 || true
 echo "  Codex skills: $(ls ~/.codex/skills 2>/dev/null | wc -l || echo 0)"
 echo "  Claude skills: $(ls ~/.claude/skills 2>/dev/null | wc -l || echo 0)"
+fi
 echo ""
 
 # 6. Create ONE router skill + universal runtime
@@ -230,7 +238,7 @@ echo "--- 7. Verify ---"
 cd ~/skillos
 python3 universal_runtime.py status 2>&1 | tail -n10 || true
 echo ""
-which mega-tron && mega-tron skills list 2>&1 | head -n10 || echo "mega-tron not ready, open new terminal"
+[ "${MEGATRON:-1}" = "1" ] && { which mega-tron && mega-tron skills list 2>&1 | head -n10 || echo "mega-tron not ready, open new terminal"; } || echo "mega-tron skipped (keyword router mode)"
 echo ""
 echo "Codex: $(which codex || echo 'not found') $(codex --version 2>&1 | head -n1 || true)"
 echo ""
