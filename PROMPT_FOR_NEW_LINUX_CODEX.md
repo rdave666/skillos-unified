@@ -35,7 +35,10 @@ ls -la /opt || true  # check space, use /home if /opt not writable
 ```bash
 cd ~
 rm -rf skillos
-git clone https://github.com/EvolvingAgentsLabs/skillos.git
+# PRIVATE repo - authenticate first: gh auth login, or SSH key
+git clone https://github.com/rdave666/skillos-unified.git skillos \
+  || git clone git@github.com:rdave666/skillos-unified.git skillos \
+  || git clone https://github.com/EvolvingAgentsLabs/skillos.git skillos  # public upstream fallback
 cd skillos
 
 # Unfreeze (remove frozen banner)

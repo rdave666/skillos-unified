@@ -31,10 +31,13 @@ if [ -d skillos ]; then
   cd skillos && git pull --quiet 2>/dev/null || true
   cd ~
 else
-  git clone https://github.com/EvolvingAgentsLabs/skillos.git
+  # rdave666/skillos-unified is PRIVATE - needs gh auth or SSH key
+  git clone https://github.com/rdave666/skillos-unified.git skillos 2>/dev/null \
+    || git clone git@github.com:rdave666/skillos-unified.git skillos 2>/dev/null \
+    || { echo "  private clone failed, falling back to public upstream (frozen original)"; git clone https://github.com/EvolvingAgentsLabs/skillos.git skillos; }
 fi
 cd ~/skillos
-echo "  Cloned to ~/skillos"
+echo "  Cloned to ~/skillos (remote: $(git remote get-url origin 2>/dev/null))"
 echo ""
 
 # 2. Unfreeze + Universal setup

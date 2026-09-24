@@ -4,7 +4,7 @@ SkillOS serves as the **Prefrontal Cortex** for the RoClaw physical robot, provi
 
 | Component | Brain Region | Role | Repository |
 |-----------|-------------|------|------------|
-| **SkillOS** | Prefrontal Cortex | Planning, reasoning, dynamic agent creation, dream consolidation | [skillos](https://github.com/EvolvingAgentsLabs/skillos) |
+| **SkillOS** | Prefrontal Cortex | Planning, reasoning, dynamic agent creation, dream consolidation | [skillos-unified](https://github.com/rdave666/skillos-unified) |
 | **RoClaw** | Cerebellum | VLM motor control, reactive navigation, trace emitter | [RoClaw](https://github.com/EvolvingAgentsLabs/RoClaw) |
 
 SkillOS communicates with RoClaw over HTTP via `roclaw_bridge.py`. Dream consolidation and strategy memory are stored as local `.md` trace files in `projects/RoClaw/memory/`.
