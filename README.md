@@ -13,7 +13,7 @@ SkillOS is a proof-of-concept OS where every component — agents, tools, memory
 
 > Idea lineage: Skills as basic programs, markdown as the executable.
 
-## Install (fresh Linux machine, one command)
+## Install (one command — all platforms below)
 
 ```bash
 # This repo is PRIVATE — authenticate first (or use SSH):
@@ -25,6 +25,75 @@ bash install.sh
 ```
 
 `install.sh` runs everything: prereqs (`git`, `python3.11+`, `uv`) → universal agent dirs → 4 external skill repos (anthropics, huggingface, openai, google-ai-edge) → mega-tron install + unified pool → router skill + `daily_briefing.py` → verification.
+
+### Platform install prompts
+
+The repo is private — every flow needs auth once: `gh auth login`, an SSH key on GitHub, or a fine-grained PAT (contents:read). Full versions in [`PROMPT_PLATFORM_INSTALLS.md`](PROMPT_PLATFORM_INSTALLS.md).
+
+**Linux (paste into Codex agent):**
+```
+Install SkillOS Unified. The repo is PRIVATE (rdave666/skillos-unified).
+  export PATH="$HOME/.local/bin:$PATH"
+  cd ~
+  gh auth status || gh auth login
+  [ -d skillos ] || git clone https://github.com/rdave666/skillos-unified.git skillos || git clone git@github.com:rdave666/skillos-unified.git skillos
+  cd ~/skillos && bash install.sh
+Then verify and report actual output:
+  python3 universal_runtime.py status
+  mega-tron skills list | head
+  python3 daily_briefing.py && cat projects/Project_daily/output/$(date +%Y-%m-%d).md
+If a step fails: show the exact error, fix, re-run. Do NOT clone any repo besides
+rdave666/skillos-unified. If auth fails, stop and tell me what's missing.
+```
+
+**Windows (PowerShell Admin) — WSL route, mega-tron works there:**
+```powershell
+wsl --install -d Ubuntu-24.04
+```
+Reboot, open Ubuntu, run the Linux flow inside it.
+No-WSL fallback (no mega-tron — Linux/macOS only; keyword router mode instead):
+```powershell
+winget install git Git.Python.3.12
+git clone https://github.com/rdave666/skillos-unified.git C:\skillos
+cd C:\skillos
+pip install rich requests openai python-dotenv
+python universal_runtime.py status && python daily_briefing.py
+```
+
+**Android phone with agent (Codex mobile app / any shell-capable agent):**
+```
+You are on a cloud sandbox. Install my private SkillOS and use it once:
+1. Authenticate to GitHub (connected account or PAT I provide)
+2. git clone https://github.com/rdave666/skillos-unified.git skillos && cd skillos
+3. bash install.sh
+4. python3 daily_briefing.py
+5. Reply with: universal_runtime.py status output + full daily briefing markdown
+6. Persist it: git add projects/ && git commit -m "daily $(date +%F) from android" && git push
+If auth fails, stop and tell me — do not use any other repo.
+```
+(Sandbox FS is ephemeral — step 6 pushing to your repo is what makes phone results survive.)
+
+**Android Termux, no agent (paste line by line):**
+```bash
+pkg update -y && pkg install -y git python curl
+ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_ed25519 && cat ~/.ssh/id_ed25519.pub
+# add that key at github.com > Settings > SSH keys (or clone with https://rdave666:<PAT>@github.com/... )
+git clone git@github.com:rdave666/skillos-unified.git skillos
+cd skillos
+SKIP_MEGATRON=1 bash install.sh   # mega-tron skipped on Termux; router runs keyword mode
+python3 universal_runtime.py status
+python3 daily_briefing.py && cat projects/Project_daily/output/$(date +%Y-%m-%d).md
+# optional: daily at 09:00 — pkg install -y termux-api && termux-wake-lock
+# (echo "0 9 * * * cd ~/skillos && python3 daily_briefing.py"; crontab -l 2>/dev/null) | crontab -
+```
+
+| | mega-tron | router mode | persistence |
+|---|---|---|---|
+| Linux + Codex | ✅ full | semantic top-K | disk |
+| Windows (WSL) | ✅ via WSL | semantic | disk |
+| Windows (native) | ❌ | keyword | disk |
+| Android + agent | ⚠️ works, ephemeral | semantic | push-back to repo |
+| Android Termux | ❌ forced skip | keyword | disk (app-private) |
 
 ## Use it (task in → output out)
 
