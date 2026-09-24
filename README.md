@@ -153,6 +153,7 @@ install.sh            # one-command unified installer
 - [`README_UNIVERSAL.md`](README_UNIVERSAL.md) — universal setup guide
 - [`PROMPT_FOR_CHATGPT_WEB.md`](PROMPT_FOR_CHATGPT_WEB.md) — prompt to get a ChatGPT-web plan for the router
 - [`PROMPT_FOR_NEW_LINUX_CODEX.md`](PROMPT_FOR_NEW_LINUX_CODEX.md) — step-by-step prompt equivalent to `install.sh`
+- [`PROMPT_PLATFORM_INSTALLS.md`](PROMPT_PLATFORM_INSTALLS.md) — paste-ready prompts: Linux+Codex, Windows, Android+agent, Termux
 - [`findings/`](findings/) — (local only, not committed) passive assessments
 
 See `docs/` for full docs.
